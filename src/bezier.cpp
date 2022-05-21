@@ -463,6 +463,9 @@ struct Trajectory bezier::get_bezier_path(double path_length) {
             math::Vec2d path_pt = time_allocated[i] * getPosFromBezier(t_now, i);
             path.push_back(path_pt);
         }
+        if(i!=box_list.size()-1){
+            path.pop_back();
+        }
     }
     vector<double> x;
     vector<double> y;
