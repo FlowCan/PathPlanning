@@ -13,6 +13,7 @@
 #include "Visualize.h"
 #include "PlanPRMPath.h"
 #include "bezier.h"
+#include "fstream"
 using namespace cv;
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
@@ -31,22 +32,32 @@ vector < vector<math::Vec2d>> obstacles_;
 vector<math::Vec2d> path;
 
 int main(int argc, char** argv) {
-    obstacles_ = GenerateStaticObstacles_unstructured();
-    struct Trajectory trajectory = PlanPRMPath(obstacles_).first;
     
+    obstacles_ = GenerateStaticObstacles_unstructured();
+    clock_t t1,t2,t3,t4;
+    t1 = clock();
+    struct Trajectory trajectory = PlanPRMPath(obstacles_).first;
     //visual PRMpath
     //VisualizeStaticResults(trajectory);
-    
+    t2 = clock();
     double path_length = PlanPRMPath(obstacles_).second;
     for (int i = 0; i < trajectory.x.size(); i++) {
         math::Vec2d node(trajectory.x[i], trajectory.y[i]);
         path.push_back(node);
     }
+    t3 = clock();
     Bezier::bezier B_curves(path, obstacles_);
     vector<Bezier::bounding_box> box_list = B_curves.get_box_list();
     double obj = 0;
     int res = B_curves.BezierPloyCoeffGeneration(obj);
     struct Trajectory bezier_path = B_curves.get_bezier_path(path_length);
+    t4 = clock();
+    // ofstream open("./time.csv", ios::out | ios::app);
+    // if (open.is_open()){
+    //     open << t2-t1 << "," << t4-t3 << endl;
+    //     open.close();
+    // }
+
     VisualizeStaticResults(bezier_path, box_list);
     VisualizeDynamicResults(bezier_path);
     return 0;
