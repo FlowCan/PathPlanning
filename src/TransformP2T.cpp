@@ -1,7 +1,6 @@
 #include "vec2d.h"
 #include "TransformP2T.h"
 #include <vector>
-
 using namespace std;
 
 
@@ -87,4 +86,41 @@ vector<vector<double>> GYQProfiles(vector<double> x, vector<double> y, vector<do
 	vector<vector<double>> ans;
 	int Nfe = x.size();
 	return ans;
+}
+
+math::Vec2d calc_xy_index(math::Vec2d pos)
+{
+    math::Vec2d idx;
+    idx.set_x(ceil((pos.x() - planning_scale_.xmin) / resolution_x));
+    idx.set_y(ceil((pos.y() - planning_scale_.ymin) / resolution_y));
+    if (idx.x() < 0)
+    {
+        idx.set_x(0);
+    }
+    if (idx.x() >= num_nodes_x)
+    {
+        idx.set_x(num_nodes_x - 1);
+    }
+    if (idx.y() < 0)
+    {
+        idx.set_y(0);
+    }
+    if (idx.y() >= num_nodes_y)
+    {
+        idx.set_y(num_nodes_y - 1);
+    }
+    return idx;
+}
+
+math::Vec2d calc_xy_index(double x,double y){
+	math::Vec2d pos(x,y);
+	return calc_xy_index(pos);
+}
+math::Vec2d calc_grid_position(math::Vec2d idx)
+{
+    
+    math::Vec2d pos;
+    pos.set_x(idx.x() * resolution_x);
+    pos.set_y(idx.y() * resolution_y);
+    return pos;
 }

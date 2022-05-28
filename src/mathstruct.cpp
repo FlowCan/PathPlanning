@@ -3,6 +3,7 @@
 #include <vector>
 #include "vec2d.h"
 #include "mathstruct.h"
+#include "TransformP2T.h"
 #include <time.h>
 using namespace std;
 
@@ -183,7 +184,20 @@ bool checkObj_linev(math::Vec2d p1, math::Vec2d p2, vector<math::Vec2d> obj) {
 
     return result;
 }
-
+bool checkObj_linev(math::Vec2d p1, math::Vec2d p2){
+    double angle = (p2 - p1).Angle();
+    double distance = (p2 - p1).Length();
+    bool Isfeasible_Line = 1;
+    double radius = vehicle_geometrics_.radius;
+    double step = radius* 0.1;
+    for (double sample=0; sample < distance; sample += step){
+        math::Vec2d sample_pt = calc_xy_index(p1.x()+sample*cos(angle), p1.y()+sample*sin(angle));
+        if(costmap_.at<uchar>(sample_pt.y(),sample_pt.x())==255){
+            return false;
+        }
+    }
+    return true;
+}
 bool PtInPolygon(math::Vec2d p, vector<math::Vec2d>& ptPolygon)
 {
     // wheather p in Polygon
@@ -287,7 +301,7 @@ vector < vector<math::Vec2d>> GenerateStaticObstacles_unstructured() {
         temp_obj_margin.push_back(tempoint);
         tempoint.set_x(x - margin_obs_); tempoint.set_y(y + margin_obs_);
         temp_obj_margin.push_back(tempoint);
-
+        
         if (PtInPolygon(vehicle_TPBV_.x0, vehicle_TPBV_.y0, temp_obj_margin)
             || PtInPolygon(vehicle_TPBV_.xtf, vehicle_TPBV_.ytf, temp_obj_margin)) {
             continue;

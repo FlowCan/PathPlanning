@@ -1,11 +1,35 @@
 #include "PlanPRMPath.h"
 #include "mathstruct.h"
+#include "TransformP2T.h"
 #include <algorithm>
 #include <cmath>
 #include <queue>
 #include <set>
+#include <opencv2/opencv.hpp>
 
-vector<math::Vec2d> getvertex(unsigned int k, vector<vector<math::Vec2d>> obstacles_cell) {
+cv::Mat CreateCostmap(){
+    cv::Mat costmap = cv::Mat::zeros(num_nodes_x,num_nodes_y,CV_8UC1); 
+    for (int i = 0; i < Nobs; i++){
+        vector<cv::Point> obs_idx; 
+        for (int obs_cell = 0; obs_cell<obstacles_[i].size();obs_cell++){
+            math::Vec2d obs_idx_temp = calc_xy_index(obstacles_[i][obs_cell]);
+            cv::Point pos = cv::Point(obs_idx_temp.x(),obs_idx_temp.y());
+            obs_idx.push_back(pos);
+        }
+        cv::fillPoly(costmap,obs_idx,cv::Scalar(255));
+    }
+    
+    double length_unit = 0.5*(resolution_x+resolution_y);
+    double radius = vehicle_geometrics_.radius/length_unit;
+    std::cout<< radius << std::endl;
+    cv::Mat elemEllipse = cv::getStructuringElement(cv::MORPH_ELLIPSE,cv::Size(radius,radius));
+    cv::Mat map;
+    cv::dilate(costmap,map, elemEllipse);
+    return map;
+}
+
+
+vector<math::Vec2d> getvertex(unsigned int k) {
     math::Vec2d source_vertex(vehicle_TPBV_.x0, vehicle_TPBV_.y0);
     math::Vec2d goal_vertex(vehicle_TPBV_.xtf, vehicle_TPBV_.ytf);
     vector<math::Vec2d> vertex;
@@ -13,11 +37,11 @@ vector<math::Vec2d> getvertex(unsigned int k, vector<vector<math::Vec2d>> obstac
     vertex.push_back(goal_vertex);
     try {
         std::string error = "";
-        if (!Is3DNodeValid(vehicle_TPBV_.x0, vehicle_TPBV_.y0, vehicle_TPBV_.theta0, obstacles_cell)) {
+        if (!Is3DNodeValid(vehicle_TPBV_.x0, vehicle_TPBV_.y0, vehicle_TPBV_.theta0)) {
             error = "vehicle can not start path correctly";
             throw error;
         }
-        if (!Is3DNodeValid(vehicle_TPBV_.xtf, vehicle_TPBV_.ytf, vehicle_TPBV_.thetatf, obstacles_cell)) {
+        if (!Is3DNodeValid(vehicle_TPBV_.xtf, vehicle_TPBV_.ytf, vehicle_TPBV_.thetatf)) {
             error = "vehicle can not end path correctly";
             throw error;
         }
@@ -34,32 +58,35 @@ vector<math::Vec2d> getvertex(unsigned int k, vector<vector<math::Vec2d>> obstac
         double x = (ux - lx) * rand01() + lx;
         double y = (uy - ly) * rand01() + ly;
         math::Vec2d point2Dim(x, y);
-        if (Is2DNodeValid(x, y, obstacles_cell)) {
+        if (Is2DNodeValid(x, y)) {
             vertex.push_back(point2Dim);
         }
     }
     return vertex;
 }
 
-vector<vector<int>> getedges(vector<math::Vec2d> vertex, vector<vector<math::Vec2d>> obstacles_cell) {
+vector<vector<int>> getedges(vector<math::Vec2d> vertex) {
+    std::cout << "getting edges..." << std::endl;
     unsigned int NumofVertex = vertex.size();
     vector<vector<int>> edges(NumofVertex);
+    double radius = vehicle_geometrics_.radius;
     for (unsigned int i = 0; i < NumofVertex; i++) {
         for (unsigned int j = i + 1; j < NumofVertex; j++) {
             math::Vec2d p1 = vertex[i];
             math::Vec2d p2 = vertex[j];
             double angle = (p2 - p1).Angle();
             double distance = (p2 - p1).Length();
-            vector<math::Vec2d> v_fea = CreateVehiclePolygon(p1, p2, angle);
-            
             bool Isfeasible_Line = 1;
-            for (unsigned int i = 0; i < obstacles_cell.size(); i++) {
-                if (IsCross(v_fea, obstacles_cell[i])) {
+            double step = radius* 0.1;
+            for (double sample=0; sample < distance; sample += step){
+                math::Vec2d sample_pt = calc_xy_index(p1.x()+sample*cos(angle), p1.y()+sample*sin(angle));
+                cv::circle(costmap_, cv::Point(sample_pt.x(),sample_pt.y()), 1, cv::Scalar(250));
+                if(costmap_.at<uchar>(sample_pt.y(),sample_pt.x())==255){
+                    cv::circle(costmap_, cv::Point(sample_pt.x(),sample_pt.y()), 3, cv::Scalar(250));
                     Isfeasible_Line = 0;
                     break;
                 }
             }
-            
             if (Isfeasible_Line)
             {
                 edges[i].push_back(j);
@@ -68,12 +95,14 @@ vector<vector<int>> getedges(vector<math::Vec2d> vertex, vector<vector<math::Vec
 
         }
     }
+    std::cout << "getting edges down" << std::endl; 
     return edges;
 }
-pair <struct Trajectory, double> PlanPRMPath(vector<vector<math::Vec2d>> obstacles_cell) {
+pair <struct Trajectory, double> PlanPRMPath( ) {
     unsigned int k = 20;
-    vector<math::Vec2d> vertex = getvertex(k, obstacles_cell);
-    vector<vector<int>> edges = getedges(vertex, obstacles_cell);
+    cv::Mat costmap = CreateCostmap();
+    vector<math::Vec2d> vertex = getvertex(k);
+    vector<vector<int>> edges = getedges(vertex);
 
     priority_queue<AstarNode*> openlist_;
     AstarNode* init_node = new AstarNode(sizeof(AstarNode));
@@ -191,7 +220,7 @@ vector<double> linspace(double pos1, double pos2, int n) {
     return linvec;
 }
 
-bool Is2DNodeValid(double x, double y, vector<vector<math::Vec2d>> obstacles_cell) {
+bool Is2DNodeValid(double x, double y) {
     double x_inf = planning_scale_.xmin;
     double x_sup = planning_scale_.xmax;
     double y_inf = planning_scale_.ymin;
@@ -200,16 +229,14 @@ bool Is2DNodeValid(double x, double y, vector<vector<math::Vec2d>> obstacles_cel
         y > y_sup || y < y_inf) {
         return false;
     }
-
-    for (unsigned int i = 0; i < obstacles_cell.size(); i++) {
-        if (PtInPolygon(x, y, obstacles_cell[i])) {
-            return false;
-        }
+    math::Vec2d idx = calc_xy_index(math::Vec2d(x,y));
+    if (costmap_.at<uchar>(idx.y(),idx.x())==255){
+        return false;
     }
     return true;
 }
 
-bool Is3DNodeValid(double x, double y, double theta, vector<vector<math::Vec2d>> obstacles_cell) {
+bool Is3DNodeValid(double x, double y, double theta) {
     double xr = x + vehicle_geometrics_.r2x * cos(theta);
     double a = std::cos(theta);
     double yr = y + vehicle_geometrics_.r2x * sin(theta);
@@ -225,11 +252,10 @@ bool Is3DNodeValid(double x, double y, double theta, vector<vector<math::Vec2d>>
         yf > y_sup || yf < y_inf) {
         return false;
     }
-    vector<math::Vec2d> V_temp = CreateVehiclePolygon(x, y, theta);
-    for (unsigned int i = 0; i < obstacles_cell.size(); i++) {
-        if (IsCross(V_temp, obstacles_cell[i])) {
-            return false;
-        }
+    math::Vec2d idx_r = calc_xy_index(math::Vec2d(xr,yr));
+    math::Vec2d idx_f = calc_xy_index(math::Vec2d(xf,yf));
+    if (costmap_.at<uchar>(idx_r.y(),idx_r.x())==255 or costmap_.at<uchar>(idx_f.y(),idx_f.x())==255){
+        return false;
     }
     return true;
 }

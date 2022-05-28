@@ -8,6 +8,10 @@
 #include <stdio.h>
 #include <mosek.h>
 #include "TransformP2T.h"
+extern vector < vector<math::Vec2d>> obstacles_;
+extern struct Vehicle_TPBV_ vehicle_TPBV_;
+extern struct Vehicle_kinematics_ vehicle_kinematics_;
+extern int Nobs;
 using namespace std;
 using namespace Eigen;
 namespace Bezier
@@ -50,7 +54,6 @@ namespace Bezier
         double minAcc;
         double maxJerk;
         double minJerk;
-        vector<vector<math::Vec2d>> obstacle_cells;
         vector<math::Vec2d> path;
 
         bounding_box box_last;
@@ -71,7 +74,7 @@ namespace Bezier
         void Time_allocate();
         bool is_Overlap(const bounding_box& box_old, const bounding_box& box_now);
     public:
-        bezier(vector<math::Vec2d> _path, vector<vector<math::Vec2d>> _obstacle_cells);
+        bezier(vector<math::Vec2d> _path);
         ~bezier();
         void initialize();
         void inflate(const vector<math::Vec2d>& path);

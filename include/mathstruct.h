@@ -3,6 +3,7 @@
 #include <math.h>
 #include "vec2d.h"
 #include <vector>
+#include <opencv2/opencv.hpp>
 using namespace std;
 #define M_PI       3.14159265358979323846   // pistruct hybrid_astar_
 //vehicle geometrics settings
@@ -36,7 +37,7 @@ struct Vehicle_kinematics_ {
         this->vehicle_v_max = 2.5;
         this->vehicle_v_min = -2.5; // upper and lower bounds of v(t) (m/s)
         this->vehicle_a_max = 0.5;
-        this->vehicle_a_min = -0.5; // upper and lower bounds of a(t) (m/s^2)
+        this->vehicle_a_min = -0.5; // uzpper and lower bounds of a(t) (m/s^2)
         this->vehicle_jerk_max = 0.5;
         this->vehicle_jerk_min = -0.5; // upper and lower bounds of jerk(t) (m/s^3) 
         this->vehicle_phi_max = 0.7;
@@ -61,29 +62,6 @@ struct Planning_scale_ {
     }
 };
 
-extern struct Planning_scale_ planning_scale_;
-struct Hybrid_astar_ {
-    double resolution_x, resolution_y, resolution_theta, num_nodes_x, num_nodes_y, num_nodes_theta;
-    double penalty_for_backward, penalty_for_direction_changes, penalty_for_steering_changes;
-    double multiplier_H, multiplier_H_for_A_star, max_iter, max_time, simulation_step, Nrs;
-    Hybrid_astar_() {
-        this->resolution_x = 0.3;
-        this->resolution_y = 0.3;
-        this->resolution_theta = 0.5;
-        this->num_nodes_x = ceil(planning_scale_.x_scale / this->resolution_x) + 1;
-        this->num_nodes_y = ceil(planning_scale_.y_scale / this->resolution_x) + 1;
-        this->num_nodes_theta = ceil(2 * M_PI / this->resolution_theta) + 1;
-        this->penalty_for_backward = 1;
-        this->penalty_for_direction_changes = 3;
-        this->penalty_for_steering_changes = 0;
-        this->multiplier_H = 5.0;
-        this->multiplier_H_for_A_star = 2.0;
-        this->max_iter = 500;
-        this->max_time = 5;
-        this->simulation_step = 0.7;
-        this->Nrs = 10;
-    }
-};
 
 //vehicle initial and terminal states settings
 struct Vehicle_TPBV_ {
@@ -106,20 +84,21 @@ struct Vehicle_TPBV_ {
     }
 };
 
-
 extern struct Vehicle_kinematics_ vehicle_kinematics_;
-extern struct Hybrid_astar_ hybrid_astar_;
 extern struct Vehicle_TPBV_ vehicle_TPBV_;
 
 extern int num_nodes_s;
 extern double margin_obs_;
 extern int Nobs;
+extern cv::Mat costmap_;
 vector<math::Vec2d> CreateVehiclePolygon(double x, double y, double theta);
 vector<math::Vec2d> CreateVehiclePolygon(math::Vec2d p1, math::Vec2d p2, double theta);
 double triArea(math::Vec2d p1, math::Vec2d p2, math::Vec2d p3);//  the area of triangle formed by the three points
 bool checkObj_point(math::Vec2d p, vector<math::Vec2d> obj);// check point wheather in obstacle (based on area )
 bool PtInPolygon(math::Vec2d p, vector<math::Vec2d>& ptPolygon);// check point wheather in Polygon (based on ray method )
 bool checkObj_linev(math::Vec2d p1, math::Vec2d p2, vector<math::Vec2d> obj);
+bool checkObj_linev(math::Vec2d p1, math::Vec2d p2);
 bool PtInPolygon(double x, double y, vector<math::Vec2d>& ptPolygon);
+
 double rand01();
 vector < vector<math::Vec2d>> GenerateStaticObstacles_unstructured();

@@ -2,9 +2,8 @@
 #include <time.h>
 using namespace Bezier;
 
-bezier::bezier(vector<math::Vec2d> _path, vector<vector<math::Vec2d>> _obstacle_cells) {
+bezier::bezier(vector<math::Vec2d> _path) {
     path = _path;
-    obstacle_cells = _obstacle_cells;
     initialize();
 };
 
@@ -43,7 +42,7 @@ void bezier::inflate(const vector<math::Vec2d>& path) {
     math::Vec2d start(pos(0, 0), pos(0, 1));
     box_last = bounding_box(start);
     int n = path.size();
-    for (int i = 0; i < n; i++) {//·���ǻ��ݵģ����Ե�һ��������������
+    for (int i = 0; i < n; i++) {
         if (is_in_box(path[i])) {
             continue;
         }
@@ -51,15 +50,15 @@ void bezier::inflate(const vector<math::Vec2d>& path) {
 
         inflate_box(box_now);
 
-        int flag = delete_box(box_last, box_now, path);//����box�ķǽ������֣�˭�ķǽ�������û�е�˵�������ظ���
+        int flag = delete_box(box_last, box_now, path);
         if (flag == 1) {
-            //do nothing  return 1:ɾ��box_now
+            //do nothing  return 1
         }
         else if (flag == 2) {
             if (!box_list.empty())
-                box_list.pop_back(); //return 2:ɾ��box_last
+                box_list.pop_back(); //return 2
 
-            while (!box_list.empty())//�ж�֮ǰ��box�᲻�ᱻbox_nowȡ��
+            while (!box_list.empty())//
             {
                 int size = box_list.size();
                 box_last = box_list[size - 1];
@@ -103,7 +102,7 @@ void bezier::simplify_box() {
 }
 
 bool bezier::is_Overlap(const bounding_box& box_old, const bounding_box& box_now) {
-    if (box_now.P3.x() >= (box_old.P2.x() + 1) || box_now.P3.y() >= (box_old.P2.y() + 1) ||//����ӣ���Ϊ�˽�box���ϱ߽�������������ΪP1234�õ���idx����
+    if (box_now.P3.x() >= (box_old.P2.x() + 1) || box_now.P3.y() >= (box_old.P2.y() + 1) ||//
         box_old.P3.x() >= (box_now.P2.x() + 1) || box_old.P3.y() >= (box_now.P2.y() + 1)) {
         return false;
     }
@@ -318,14 +317,14 @@ int bezier::delete_box(const bounding_box& box_last, const bounding_box& box_now
             if (Px >= box_last.P1.x() && Px <= box_last.P2.x() && Py >= box_last.P4.y() && Py <= box_last.P2.y() &&
                 (Px<box_now.P1.x() || Px>box_now.P2.x() || Py<box_now.P4.y() || Py>box_now.P2.y()))
             {
-                has_box_last = true;//���Լ���һ���ĵ�
+                has_box_last = true;//
             }
         }
         if (!has_box_now) {
             if (Px >= box_now.P1.x() && Px <= box_now.P2.x() && Py >= box_now.P4.y() && Py <= box_now.P2.y() &&
                 (Px<box_last.P1.x() || Px>box_last.P2.x() || Py<box_last.P4.y() || Py>box_last.P2.y()))
             {
-                has_box_now = true;//���Լ���һ���ĵ�
+                has_box_now = true;//
             }
         }
         if (has_box_last && has_box_now) {
@@ -361,8 +360,8 @@ void bezier::inflate_box(bounding_box& box) {
 
                 temp_P2.set_y(temp_P2.y() + step);
                 math::Vec2d temp_P1(temp_P3.x(), temp_P2.y());
-                for (int i = 0; i < obstacle_cells.size(); i++) {
-                    if (temp_P2.y() >= planning_scale_.ymax || checkObj_linev(temp_P1, temp_P2, obstacle_cells[i])) {
+                for (int i = 0; i < Nobs; i++) {
+                    if (temp_P2.y() >= planning_scale_.ymax || checkObj_linev(temp_P1, temp_P2, obstacles_[i])) {
                         has_P2_x = true;
                         break;
                     }
@@ -376,8 +375,8 @@ void bezier::inflate_box(bounding_box& box) {
             if (!has_P2_y) {
                 temp_P2.set_x(temp_P2.x() + step);
                 math::Vec2d temp_P4(temp_P2.x(), temp_P3.y());
-                for (int i = 0; i < obstacle_cells.size(); i++) {
-                    if (temp_P2.x() >= planning_scale_.xmax || checkObj_linev(temp_P2, temp_P4, obstacle_cells[i])) {
+                for (int i = 0; i < Nobs; i++) {
+                    if (temp_P2.x() >= planning_scale_.xmax || checkObj_linev(temp_P2, temp_P4, obstacles_[i])) {
                         has_P2_y = true;
                         break;
                     }
@@ -391,8 +390,8 @@ void bezier::inflate_box(bounding_box& box) {
             if (!has_P3_x) {
                 temp_P3.set_y(temp_P3.y() - step);
                 math::Vec2d temp_P4(temp_P2.x(), temp_P3.y());
-                for (int i = 0; i < obstacle_cells.size(); i++) {
-                    if (temp_P3.y() <= planning_scale_.ymin || checkObj_linev(temp_P3, temp_P4, obstacle_cells[i])) {
+                for (int i = 0; i < Nobs; i++) {
+                    if (temp_P3.y() <= planning_scale_.ymin || checkObj_linev(temp_P3, temp_P4, obstacles_[i])) {
                         has_P3_x = true;
                         break;
                     }
@@ -405,8 +404,8 @@ void bezier::inflate_box(bounding_box& box) {
             if (!has_P3_y) {
                 temp_P3.set_x(temp_P3.x() - step);
                 math::Vec2d temp_P1(temp_P3.x(), temp_P2.y());
-                for (int i = 0; i < obstacle_cells.size(); i++) {
-                    if (temp_P3.x() <= planning_scale_.xmin || checkObj_linev(temp_P3, temp_P1, obstacle_cells[i])) {
+                for (int i = 0; i < Nobs; i++) {
+                    if (temp_P3.x() <= planning_scale_.xmin || checkObj_linev(temp_P3, temp_P1, obstacles_[i])) {
                         has_P3_y = true;
                         break;
                     }

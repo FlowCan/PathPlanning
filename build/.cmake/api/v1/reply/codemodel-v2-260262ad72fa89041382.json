@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.0.0"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Release",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "PathPlanning::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PathPlanning-Release-3e16cc6346a377af50a9.json",
+					"jsonFile" : "target-PathPlanning-Debug-9f590fe8c2a8f2602c02.json",
 					"name" : "PathPlanning",
 					"projectIndex" : 0
 				}

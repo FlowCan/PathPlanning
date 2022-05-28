@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: PathPlanning
-# Configurations: Release
+# Configurations: Debug
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Release
+CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -49,51 +49,51 @@ cmake_ninja_workdir = C$:/Users/HP/projects/PathPlanning/build/
 
 build cmake_object_order_depends_target_PathPlanning: phony || CMakeFiles/PathPlanning.dir
 
-build CMakeFiles/PathPlanning.dir/src/bezier.cpp.obj: CXX_COMPILER__PathPlanning_Release C$:/Users/HP/projects/PathPlanning/src/bezier.cpp || cmake_object_order_depends_target_PathPlanning
+build CMakeFiles/PathPlanning.dir/src/bezier.cpp.obj: CXX_COMPILER__PathPlanning_Debug C$:/Users/HP/projects/PathPlanning/src/bezier.cpp || cmake_object_order_depends_target_PathPlanning
   DEP_FILE = CMakeFiles\PathPlanning.dir\src\bezier.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -g
   INCLUDES = -IC:/Users/HP/projects/PathPlanning/./include -IC:/Users/HP/projects/PathPlanning/./3rdParty/Mosek/9.3/tools/platform/win64x86/h -isystem C:/msys64/mingw64/include/opencv4 -isystem C:/msys64/mingw64/include/eigen3
   OBJECT_DIR = CMakeFiles\PathPlanning.dir
   OBJECT_FILE_DIR = CMakeFiles\PathPlanning.dir\src
 
-build CMakeFiles/PathPlanning.dir/src/mathstruct.cpp.obj: CXX_COMPILER__PathPlanning_Release C$:/Users/HP/projects/PathPlanning/src/mathstruct.cpp || cmake_object_order_depends_target_PathPlanning
+build CMakeFiles/PathPlanning.dir/src/mathstruct.cpp.obj: CXX_COMPILER__PathPlanning_Debug C$:/Users/HP/projects/PathPlanning/src/mathstruct.cpp || cmake_object_order_depends_target_PathPlanning
   DEP_FILE = CMakeFiles\PathPlanning.dir\src\mathstruct.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -g
   INCLUDES = -IC:/Users/HP/projects/PathPlanning/./include -IC:/Users/HP/projects/PathPlanning/./3rdParty/Mosek/9.3/tools/platform/win64x86/h -isystem C:/msys64/mingw64/include/opencv4 -isystem C:/msys64/mingw64/include/eigen3
   OBJECT_DIR = CMakeFiles\PathPlanning.dir
   OBJECT_FILE_DIR = CMakeFiles\PathPlanning.dir\src
 
-build CMakeFiles/PathPlanning.dir/src/PlanPRMPath.cpp.obj: CXX_COMPILER__PathPlanning_Release C$:/Users/HP/projects/PathPlanning/src/PlanPRMPath.cpp || cmake_object_order_depends_target_PathPlanning
+build CMakeFiles/PathPlanning.dir/src/PlanPRMPath.cpp.obj: CXX_COMPILER__PathPlanning_Debug C$:/Users/HP/projects/PathPlanning/src/PlanPRMPath.cpp || cmake_object_order_depends_target_PathPlanning
   DEP_FILE = CMakeFiles\PathPlanning.dir\src\PlanPRMPath.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -g
   INCLUDES = -IC:/Users/HP/projects/PathPlanning/./include -IC:/Users/HP/projects/PathPlanning/./3rdParty/Mosek/9.3/tools/platform/win64x86/h -isystem C:/msys64/mingw64/include/opencv4 -isystem C:/msys64/mingw64/include/eigen3
   OBJECT_DIR = CMakeFiles\PathPlanning.dir
   OBJECT_FILE_DIR = CMakeFiles\PathPlanning.dir\src
 
-build CMakeFiles/PathPlanning.dir/src/TransformP2T.cpp.obj: CXX_COMPILER__PathPlanning_Release C$:/Users/HP/projects/PathPlanning/src/TransformP2T.cpp || cmake_object_order_depends_target_PathPlanning
+build CMakeFiles/PathPlanning.dir/src/TransformP2T.cpp.obj: CXX_COMPILER__PathPlanning_Debug C$:/Users/HP/projects/PathPlanning/src/TransformP2T.cpp || cmake_object_order_depends_target_PathPlanning
   DEP_FILE = CMakeFiles\PathPlanning.dir\src\TransformP2T.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -g
   INCLUDES = -IC:/Users/HP/projects/PathPlanning/./include -IC:/Users/HP/projects/PathPlanning/./3rdParty/Mosek/9.3/tools/platform/win64x86/h -isystem C:/msys64/mingw64/include/opencv4 -isystem C:/msys64/mingw64/include/eigen3
   OBJECT_DIR = CMakeFiles\PathPlanning.dir
   OBJECT_FILE_DIR = CMakeFiles\PathPlanning.dir\src
 
-build CMakeFiles/PathPlanning.dir/src/vec2d.cpp.obj: CXX_COMPILER__PathPlanning_Release C$:/Users/HP/projects/PathPlanning/src/vec2d.cpp || cmake_object_order_depends_target_PathPlanning
+build CMakeFiles/PathPlanning.dir/src/vec2d.cpp.obj: CXX_COMPILER__PathPlanning_Debug C$:/Users/HP/projects/PathPlanning/src/vec2d.cpp || cmake_object_order_depends_target_PathPlanning
   DEP_FILE = CMakeFiles\PathPlanning.dir\src\vec2d.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -g
   INCLUDES = -IC:/Users/HP/projects/PathPlanning/./include -IC:/Users/HP/projects/PathPlanning/./3rdParty/Mosek/9.3/tools/platform/win64x86/h -isystem C:/msys64/mingw64/include/opencv4 -isystem C:/msys64/mingw64/include/eigen3
   OBJECT_DIR = CMakeFiles\PathPlanning.dir
   OBJECT_FILE_DIR = CMakeFiles\PathPlanning.dir\src
 
-build CMakeFiles/PathPlanning.dir/src/Visualize.cpp.obj: CXX_COMPILER__PathPlanning_Release C$:/Users/HP/projects/PathPlanning/src/Visualize.cpp || cmake_object_order_depends_target_PathPlanning
+build CMakeFiles/PathPlanning.dir/src/Visualize.cpp.obj: CXX_COMPILER__PathPlanning_Debug C$:/Users/HP/projects/PathPlanning/src/Visualize.cpp || cmake_object_order_depends_target_PathPlanning
   DEP_FILE = CMakeFiles\PathPlanning.dir\src\Visualize.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -g
   INCLUDES = -IC:/Users/HP/projects/PathPlanning/./include -IC:/Users/HP/projects/PathPlanning/./3rdParty/Mosek/9.3/tools/platform/win64x86/h -isystem C:/msys64/mingw64/include/opencv4 -isystem C:/msys64/mingw64/include/eigen3
   OBJECT_DIR = CMakeFiles\PathPlanning.dir
   OBJECT_FILE_DIR = CMakeFiles\PathPlanning.dir\src
 
-build CMakeFiles/PathPlanning.dir/main.cpp.obj: CXX_COMPILER__PathPlanning_Release C$:/Users/HP/projects/PathPlanning/main.cpp || cmake_object_order_depends_target_PathPlanning
+build CMakeFiles/PathPlanning.dir/main.cpp.obj: CXX_COMPILER__PathPlanning_Debug C$:/Users/HP/projects/PathPlanning/main.cpp || cmake_object_order_depends_target_PathPlanning
   DEP_FILE = CMakeFiles\PathPlanning.dir\main.cpp.obj.d
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -g
   INCLUDES = -IC:/Users/HP/projects/PathPlanning/./include -IC:/Users/HP/projects/PathPlanning/./3rdParty/Mosek/9.3/tools/platform/win64x86/h -isystem C:/msys64/mingw64/include/opencv4 -isystem C:/msys64/mingw64/include/eigen3
   OBJECT_DIR = CMakeFiles\PathPlanning.dir
   OBJECT_FILE_DIR = CMakeFiles\PathPlanning.dir
@@ -106,8 +106,8 @@ build CMakeFiles/PathPlanning.dir/main.cpp.obj: CXX_COMPILER__PathPlanning_Relea
 #############################################
 # Link the executable PathPlanning.exe
 
-build PathPlanning.exe: CXX_EXECUTABLE_LINKER__PathPlanning_Release CMakeFiles/PathPlanning.dir/src/bezier.cpp.obj CMakeFiles/PathPlanning.dir/src/mathstruct.cpp.obj CMakeFiles/PathPlanning.dir/src/PlanPRMPath.cpp.obj CMakeFiles/PathPlanning.dir/src/TransformP2T.cpp.obj CMakeFiles/PathPlanning.dir/src/vec2d.cpp.obj CMakeFiles/PathPlanning.dir/src/Visualize.cpp.obj CMakeFiles/PathPlanning.dir/main.cpp.obj | C$:/msys64/mingw64/lib/libopencv_gapi.dll.a C$:/msys64/mingw64/lib/libopencv_stitching.dll.a C$:/msys64/mingw64/lib/libopencv_alphamat.dll.a C$:/msys64/mingw64/lib/libopencv_aruco.dll.a C$:/msys64/mingw64/lib/libopencv_barcode.dll.a C$:/msys64/mingw64/lib/libopencv_bgsegm.dll.a C$:/msys64/mingw64/lib/libopencv_ccalib.dll.a C$:/msys64/mingw64/lib/libopencv_cvv.dll.a C$:/msys64/mingw64/lib/libopencv_dnn_objdetect.dll.a C$:/msys64/mingw64/lib/libopencv_dnn_superres.dll.a C$:/msys64/mingw64/lib/libopencv_dpm.dll.a C$:/msys64/mingw64/lib/libopencv_face.dll.a C$:/msys64/mingw64/lib/libopencv_freetype.dll.a C$:/msys64/mingw64/lib/libopencv_fuzzy.dll.a C$:/msys64/mingw64/lib/libopencv_hdf.dll.a C$:/msys64/mingw64/lib/libopencv_hfs.dll.a C$:/msys64/mingw64/lib/libopencv_img_hash.dll.a C$:/msys64/mingw64/lib/libopencv_intensity_transform.dll.a C$:/msys64/mingw64/lib/libopencv_line_descriptor.dll.a C$:/msys64/mingw64/lib/libopencv_mcc.dll.a C$:/msys64/mingw64/lib/libopencv_ovis.dll.a C$:/msys64/mingw64/lib/libopencv_quality.dll.a C$:/msys64/mingw64/lib/libopencv_rapid.dll.a C$:/msys64/mingw64/lib/libopencv_reg.dll.a C$:/msys64/mingw64/lib/libopencv_rgbd.dll.a C$:/msys64/mingw64/lib/libopencv_saliency.dll.a C$:/msys64/mingw64/lib/libopencv_sfm.dll.a C$:/msys64/mingw64/lib/libopencv_stereo.dll.a C$:/msys64/mingw64/lib/libopencv_structured_light.dll.a C$:/msys64/mingw64/lib/libopencv_superres.dll.a C$:/msys64/mingw64/lib/libopencv_surface_matching.dll.a C$:/msys64/mingw64/lib/libopencv_tracking.dll.a C$:/msys64/mingw64/lib/libopencv_videostab.dll.a C$:/msys64/mingw64/lib/libopencv_viz.dll.a C$:/msys64/mingw64/lib/libopencv_wechat_qrcode.dll.a C$:/msys64/mingw64/lib/libopencv_xfeatures2d.dll.a C$:/msys64/mingw64/lib/libopencv_xobjdetect.dll.a C$:/msys64/mingw64/lib/libopencv_xphoto.dll.a C$:/msys64/mingw64/lib/libopencv_shape.dll.a C$:/msys64/mingw64/lib/libopencv_highgui.dll.a C$:/msys64/mingw64/lib/libopencv_datasets.dll.a C$:/msys64/mingw64/lib/libopencv_plot.dll.a C$:/msys64/mingw64/lib/libopencv_text.dll.a C$:/msys64/mingw64/lib/libopencv_ml.dll.a C$:/msys64/mingw64/lib/libopencv_phase_unwrapping.dll.a C$:/msys64/mingw64/lib/libopencv_optflow.dll.a C$:/msys64/mingw64/lib/libopencv_ximgproc.dll.a C$:/msys64/mingw64/lib/libopencv_video.dll.a C$:/msys64/mingw64/lib/libopencv_videoio.dll.a C$:/msys64/mingw64/lib/libopencv_imgcodecs.dll.a C$:/msys64/mingw64/lib/libopencv_objdetect.dll.a C$:/msys64/mingw64/lib/libopencv_calib3d.dll.a C$:/msys64/mingw64/lib/libopencv_dnn.dll.a C$:/msys64/mingw64/lib/libopencv_features2d.dll.a C$:/msys64/mingw64/lib/libopencv_flann.dll.a C$:/msys64/mingw64/lib/libopencv_photo.dll.a C$:/msys64/mingw64/lib/libopencv_imgproc.dll.a C$:/msys64/mingw64/lib/libopencv_core.dll.a
-  FLAGS = -O3 -DNDEBUG
+build PathPlanning.exe: CXX_EXECUTABLE_LINKER__PathPlanning_Debug CMakeFiles/PathPlanning.dir/src/bezier.cpp.obj CMakeFiles/PathPlanning.dir/src/mathstruct.cpp.obj CMakeFiles/PathPlanning.dir/src/PlanPRMPath.cpp.obj CMakeFiles/PathPlanning.dir/src/TransformP2T.cpp.obj CMakeFiles/PathPlanning.dir/src/vec2d.cpp.obj CMakeFiles/PathPlanning.dir/src/Visualize.cpp.obj CMakeFiles/PathPlanning.dir/main.cpp.obj | C$:/msys64/mingw64/lib/libopencv_gapi.dll.a C$:/msys64/mingw64/lib/libopencv_stitching.dll.a C$:/msys64/mingw64/lib/libopencv_alphamat.dll.a C$:/msys64/mingw64/lib/libopencv_aruco.dll.a C$:/msys64/mingw64/lib/libopencv_barcode.dll.a C$:/msys64/mingw64/lib/libopencv_bgsegm.dll.a C$:/msys64/mingw64/lib/libopencv_ccalib.dll.a C$:/msys64/mingw64/lib/libopencv_cvv.dll.a C$:/msys64/mingw64/lib/libopencv_dnn_objdetect.dll.a C$:/msys64/mingw64/lib/libopencv_dnn_superres.dll.a C$:/msys64/mingw64/lib/libopencv_dpm.dll.a C$:/msys64/mingw64/lib/libopencv_face.dll.a C$:/msys64/mingw64/lib/libopencv_freetype.dll.a C$:/msys64/mingw64/lib/libopencv_fuzzy.dll.a C$:/msys64/mingw64/lib/libopencv_hdf.dll.a C$:/msys64/mingw64/lib/libopencv_hfs.dll.a C$:/msys64/mingw64/lib/libopencv_img_hash.dll.a C$:/msys64/mingw64/lib/libopencv_intensity_transform.dll.a C$:/msys64/mingw64/lib/libopencv_line_descriptor.dll.a C$:/msys64/mingw64/lib/libopencv_mcc.dll.a C$:/msys64/mingw64/lib/libopencv_ovis.dll.a C$:/msys64/mingw64/lib/libopencv_quality.dll.a C$:/msys64/mingw64/lib/libopencv_rapid.dll.a C$:/msys64/mingw64/lib/libopencv_reg.dll.a C$:/msys64/mingw64/lib/libopencv_rgbd.dll.a C$:/msys64/mingw64/lib/libopencv_saliency.dll.a C$:/msys64/mingw64/lib/libopencv_sfm.dll.a C$:/msys64/mingw64/lib/libopencv_stereo.dll.a C$:/msys64/mingw64/lib/libopencv_structured_light.dll.a C$:/msys64/mingw64/lib/libopencv_superres.dll.a C$:/msys64/mingw64/lib/libopencv_surface_matching.dll.a C$:/msys64/mingw64/lib/libopencv_tracking.dll.a C$:/msys64/mingw64/lib/libopencv_videostab.dll.a C$:/msys64/mingw64/lib/libopencv_viz.dll.a C$:/msys64/mingw64/lib/libopencv_wechat_qrcode.dll.a C$:/msys64/mingw64/lib/libopencv_xfeatures2d.dll.a C$:/msys64/mingw64/lib/libopencv_xobjdetect.dll.a C$:/msys64/mingw64/lib/libopencv_xphoto.dll.a C$:/msys64/mingw64/lib/libopencv_shape.dll.a C$:/msys64/mingw64/lib/libopencv_highgui.dll.a C$:/msys64/mingw64/lib/libopencv_datasets.dll.a C$:/msys64/mingw64/lib/libopencv_plot.dll.a C$:/msys64/mingw64/lib/libopencv_text.dll.a C$:/msys64/mingw64/lib/libopencv_ml.dll.a C$:/msys64/mingw64/lib/libopencv_phase_unwrapping.dll.a C$:/msys64/mingw64/lib/libopencv_optflow.dll.a C$:/msys64/mingw64/lib/libopencv_ximgproc.dll.a C$:/msys64/mingw64/lib/libopencv_video.dll.a C$:/msys64/mingw64/lib/libopencv_videoio.dll.a C$:/msys64/mingw64/lib/libopencv_imgcodecs.dll.a C$:/msys64/mingw64/lib/libopencv_objdetect.dll.a C$:/msys64/mingw64/lib/libopencv_calib3d.dll.a C$:/msys64/mingw64/lib/libopencv_dnn.dll.a C$:/msys64/mingw64/lib/libopencv_features2d.dll.a C$:/msys64/mingw64/lib/libopencv_flann.dll.a C$:/msys64/mingw64/lib/libopencv_photo.dll.a C$:/msys64/mingw64/lib/libopencv_imgproc.dll.a C$:/msys64/mingw64/lib/libopencv_core.dll.a
+  FLAGS = -g
   LINK_LIBRARIES = C:/msys64/mingw64/lib/libopencv_gapi.dll.a  C:/msys64/mingw64/lib/libopencv_stitching.dll.a  C:/msys64/mingw64/lib/libopencv_alphamat.dll.a  C:/msys64/mingw64/lib/libopencv_aruco.dll.a  C:/msys64/mingw64/lib/libopencv_barcode.dll.a  C:/msys64/mingw64/lib/libopencv_bgsegm.dll.a  C:/msys64/mingw64/lib/libopencv_ccalib.dll.a  C:/msys64/mingw64/lib/libopencv_cvv.dll.a  C:/msys64/mingw64/lib/libopencv_dnn_objdetect.dll.a  C:/msys64/mingw64/lib/libopencv_dnn_superres.dll.a  C:/msys64/mingw64/lib/libopencv_dpm.dll.a  C:/msys64/mingw64/lib/libopencv_face.dll.a  C:/msys64/mingw64/lib/libopencv_freetype.dll.a  C:/msys64/mingw64/lib/libopencv_fuzzy.dll.a  C:/msys64/mingw64/lib/libopencv_hdf.dll.a  C:/msys64/mingw64/lib/libopencv_hfs.dll.a  C:/msys64/mingw64/lib/libopencv_img_hash.dll.a  C:/msys64/mingw64/lib/libopencv_intensity_transform.dll.a  C:/msys64/mingw64/lib/libopencv_line_descriptor.dll.a  C:/msys64/mingw64/lib/libopencv_mcc.dll.a  C:/msys64/mingw64/lib/libopencv_ovis.dll.a  C:/msys64/mingw64/lib/libopencv_quality.dll.a  C:/msys64/mingw64/lib/libopencv_rapid.dll.a  C:/msys64/mingw64/lib/libopencv_reg.dll.a  C:/msys64/mingw64/lib/libopencv_rgbd.dll.a  C:/msys64/mingw64/lib/libopencv_saliency.dll.a  C:/msys64/mingw64/lib/libopencv_sfm.dll.a  C:/msys64/mingw64/lib/libopencv_stereo.dll.a  C:/msys64/mingw64/lib/libopencv_structured_light.dll.a  C:/msys64/mingw64/lib/libopencv_superres.dll.a  C:/msys64/mingw64/lib/libopencv_surface_matching.dll.a  C:/msys64/mingw64/lib/libopencv_tracking.dll.a  C:/msys64/mingw64/lib/libopencv_videostab.dll.a  C:/msys64/mingw64/lib/libopencv_viz.dll.a  C:/msys64/mingw64/lib/libopencv_wechat_qrcode.dll.a  C:/msys64/mingw64/lib/libopencv_xfeatures2d.dll.a  C:/msys64/mingw64/lib/libopencv_xobjdetect.dll.a  C:/msys64/mingw64/lib/libopencv_xphoto.dll.a  -lfusion64_9_3  -lmosek64_9_3  C:/msys64/mingw64/lib/libopencv_shape.dll.a  C:/msys64/mingw64/lib/libopencv_highgui.dll.a  C:/msys64/mingw64/lib/libopencv_datasets.dll.a  C:/msys64/mingw64/lib/libopencv_plot.dll.a  C:/msys64/mingw64/lib/libopencv_text.dll.a  C:/msys64/mingw64/lib/libopencv_ml.dll.a  C:/msys64/mingw64/lib/libopencv_phase_unwrapping.dll.a  C:/msys64/mingw64/lib/libopencv_optflow.dll.a  C:/msys64/mingw64/lib/libopencv_ximgproc.dll.a  C:/msys64/mingw64/lib/libopencv_video.dll.a  C:/msys64/mingw64/lib/libopencv_videoio.dll.a  C:/msys64/mingw64/lib/libopencv_imgcodecs.dll.a  C:/msys64/mingw64/lib/libopencv_objdetect.dll.a  C:/msys64/mingw64/lib/libopencv_calib3d.dll.a  C:/msys64/mingw64/lib/libopencv_dnn.dll.a  C:/msys64/mingw64/lib/libopencv_features2d.dll.a  C:/msys64/mingw64/lib/libopencv_flann.dll.a  C:/msys64/mingw64/lib/libopencv_photo.dll.a  C:/msys64/mingw64/lib/libopencv_imgproc.dll.a  C:/msys64/mingw64/lib/libopencv_core.dll.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/HP/projects/PathPlanning/./3rdParty/Mosek/9.3/tools/platform/win64x86/bin
   OBJECT_DIR = CMakeFiles\PathPlanning.dir

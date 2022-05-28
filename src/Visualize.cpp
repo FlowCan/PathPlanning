@@ -21,10 +21,6 @@ void VisualizeStaticResults(struct Trajectory trajectory) {
     double xmin = *min_element(trajectory.x.begin(), trajectory.x.end());
     double ymax = *max_element(trajectory.y.begin(), trajectory.y.end());
     double ymin = *min_element(trajectory.y.begin(), trajectory.y.end());
-    cout << "max_x: " << xmax << endl;
-    cout << "min_x: " << xmin << endl;
-    cout << "max_y: " << ymax << endl;
-    cout << "min_y: " << ymin << endl;
     cv_axis2d axis(xmin - 5, xmax + 5, ymin - 5, ymax + 5);
 
     Mat canvas = Mat::ones(Size(512, 512 * (axis.y_h - axis.y_l) / (axis.x_h - axis.x_l)), CV_8UC3);
